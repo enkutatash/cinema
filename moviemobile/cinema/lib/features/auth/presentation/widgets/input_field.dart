@@ -1,6 +1,7 @@
 import 'package:cinema/core/constant/color.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class InputField extends StatelessWidget {
   TextEditingController controller;
   String hintText;

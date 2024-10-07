@@ -18,22 +18,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>(_login);
   }
 
-  FutureOr<void> _register(RegisterEvent event, Emitter<AuthState> emit) async{
+  FutureOr<void> _register(RegisterEvent event, Emitter<AuthState> emit) async {
+
     emit(state.copyWith(status: AuthStatus.loading));
     final name = Name.dirty(event.fullName);
     final email = Email.dirty(event.email);
     final password = Password.dirty(event.password);
-    final confirmPassword = ConfirmPassword.dirty(event.password, event.confirmPassword);
-    if(name.isValid && email.isValid && password.isValid && confirmPassword.isValid) {
-      await registerUsecase.execute(event.fullName, event.email, event.password).then((value) {
+    final confirmPassword =
+        ConfirmPassword.dirty(event.password, event.confirmPassword);
+    if (name.isValid &&
+        email.isValid &&
+        password.isValid &&
+        confirmPassword.isValid) {
+      await registerUsecase
+          .execute(event.fullName, event.email, event.password)
+          .then((value) {
         value.fold((failure) {
-          emit(state.copyWith(status: AuthStatus.failed));
-        }, (voidValue) async{
+
+          emit(state.copyWith(status: AuthStatus.failed,message: failure.message));
+        }, (voidValue) async {
           await loginUsecase.execute(event.email, event.password).then((value) {
             value.fold((failure) {
-              emit(state.copyWith(status: AuthStatus.failed));
+            
+              emit(state.copyWith(status: AuthStatus.failed,message: failure.message));
             }, (authEntity) {
-              emit(state.copyWith(status: AuthStatus.success, formzStatus: FormzStatus.valid));
+              emit(state.copyWith(
+                  status: AuthStatus.success, formzStatus: FormzStatus.valid));
             });
           });
         });
@@ -41,6 +51,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       emit(state.copyWith(
         status: AuthStatus.failed,
+        message: 'Invalid email or password',
       ));
     }
   }
@@ -49,17 +60,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(status: AuthStatus.loading));
     final email = Email.dirty(event.email);
     final password = Password.dirty(event.password);
-    if(email.isValid && password.isValid) {
+    if (email.isValid && password.isValid) {
       loginUsecase.execute(event.email, event.password).then((value) {
         value.fold((failure) {
-          emit(state.copyWith(status: AuthStatus.failed));
+          emit(state.copyWith(status: AuthStatus.failed,message: failure.message));
         }, (authEntity) {
-          emit(state.copyWith(status: AuthStatus.success, formzStatus: FormzStatus.valid));
+         
+          emit(state.copyWith(
+              status: AuthStatus.success, formzStatus: FormzStatus.valid));
         });
       });
     } else {
       emit(state.copyWith(
-        status: AuthStatus.failed,
+        status: AuthStatus.failed,message: 'Invalid email or password',
       ));
     }
   }

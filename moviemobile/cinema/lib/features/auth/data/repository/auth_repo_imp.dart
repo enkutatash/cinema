@@ -15,18 +15,19 @@ class AuthRepoImp extends AuthRepo {
       required this.localDataSource,
       required this.networkInfo});
   @override
-  Future<Either<Failure, AuthModel>> login(String email, String password) async {
+  Future<Either<Failure, AuthModel>> login(
+      String email, String password) async {
     try {
       if (await networkInfo.isConnected) {
         var token = await remoteDataSource.login(email, password);
         return token.fold((failure) async {
           return Left(failure);
         }, (user) async {
+          
           await localDataSource.saveToken(user.token);
           return Right(user);
         });
-      }else{
-
+      } else {
         return Left(Failure(message: "No Internet Connection"));
       }
     } catch (e) {
@@ -36,16 +37,15 @@ class AuthRepoImp extends AuthRepo {
 
   @override
   Future<Either<Failure, void>> register(
-      String fullName, String email, String password) async{
-      try{
-        if (await networkInfo.isConnected) {
-          return remoteDataSource.register(fullName, email, password);
-        }else{
-          return Left(Failure(message: "No Internet Connection"));
-        }
-      
-      }catch(e){
-        return Left(Failure(message: "Error $e"));
+      String fullName, String email, String password) async {
+    try {
+      if (await networkInfo.isConnected) {
+        return remoteDataSource.register(fullName, email, password);
+      } else {
+        return Left(Failure(message: "No Internet Connection"));
       }
+    } catch (e) {
+      return Left(Failure(message: "Error $e"));
+    }
   }
 }

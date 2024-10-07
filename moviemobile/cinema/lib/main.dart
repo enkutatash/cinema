@@ -1,9 +1,12 @@
 import 'package:cinema/features/auth/domain/usecase/login_usecase.dart';
+import 'package:cinema/features/auth/domain/usecase/register_usecase.dart';
 import 'package:cinema/features/auth/presentation/auth_page/login_page.dart';
 import 'package:cinema/features/auth/presentation/auth_page/register_page.dart';
-import 'package:cinema/features/auth/presentation/auth_page/splash_screen.dart';
+import 'package:cinema/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:cinema/service_locator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,24 +19,33 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
- 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
-        initialRoute: '/register',
-        routes:  {
-          // '/': (context) => SplashScreen(),
-          '/register':(context) => RegisterPage(),
-          '/login':(context) => LoginPage(),
-          '/home':(context) => Home(loginUsecase: locator<LoginUsecase>(),)
-       
-        },
-        );
+    return MultiProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(
+              registerUsecase: locator<RegisterUsecase>(),
+              loginUsecase: locator<LoginUsecase>(),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          initialRoute: '/register',
+          routes: {
+            // '/': (context) => SplashScreen(),
+            '/register': (context) => RegisterPage(),
+            '/login': (context) => LoginPage(),
+            '/home': (context) => Home(
+                  loginUsecase: locator<LoginUsecase>(),
+                )
+          },
+        ));
   }
 }
 
