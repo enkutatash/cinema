@@ -13,7 +13,7 @@ class MovieSchedule extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
 
     return Container(
-      height: height * 0.2,
+      height: height * 0.23,
       width: width * 0.9,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -89,6 +89,29 @@ class MovieSchedule extends StatelessWidget {
                           ),
                           TextSpan(
                             text: '2h 2m', // The rest will be regular
+                            style: TextStyle(
+                              color: AppColor.lightRed,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: height * 0.007),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Time: ', // Only 'Genre' will be bold
+                            style: TextStyle(
+                              color: AppColor.lightRed,
+                              fontSize: 14,
+                              fontWeight:
+                                  FontWeight.bold, // Bold only for 'Genre'
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Today 10:30 pm', // The rest will be regular
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
