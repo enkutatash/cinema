@@ -68,6 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   InputField(
                     controller: passwordController,
                     hintText: "Password",
+                    isPassword: true,
                   ),
                   SizedBox(
                     height: height * 0.1,

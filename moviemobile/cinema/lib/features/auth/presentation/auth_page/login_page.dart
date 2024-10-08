@@ -63,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   InputField(
                     controller: passwordController,
                     hintText: "Password",
+                    isPassword: true,
                   ),
                   SizedBox(
                     height: height * 0.1,

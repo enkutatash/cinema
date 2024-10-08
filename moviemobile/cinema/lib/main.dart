@@ -3,6 +3,7 @@ import 'package:cinema/features/auth/domain/usecase/register_usecase.dart';
 import 'package:cinema/features/auth/presentation/auth_page/login_page.dart';
 import 'package:cinema/features/auth/presentation/auth_page/register_page.dart';
 import 'package:cinema/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:cinema/features/movie/presentaion/pages/movie_display_page.dart';
 import 'package:cinema/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,11 +37,12 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          initialRoute: '/register',
+          initialRoute: '/displaymovie',
           routes: {
             // '/': (context) => SplashScreen(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
+            '/displaymovie':(context)=>MovieDisplayPage(),
             '/home': (context) => Home(
                   loginUsecase: locator<LoginUsecase>(),
                 )
