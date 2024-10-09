@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema/core/constant/color.dart';
 import 'package:cinema/features/movie/presentaion/widgets/movie_schedule.dart';
-import 'package:cinema/features/movie/presentaion/widgets/search_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,6 @@ class MovieDisplayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController searchController = TextEditingController();
     final List<Map<String, String>> movieList = [
       {
         'image': 'assets/images/joker.jpg',
@@ -31,7 +29,6 @@ class MovieDisplayPage extends StatelessWidget {
     ];
 
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,

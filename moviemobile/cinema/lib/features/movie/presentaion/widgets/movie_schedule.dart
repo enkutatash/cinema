@@ -55,17 +55,17 @@ class MovieSchedule extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Genre: ', // Only 'Genre' will be bold
+                            text: 'Genre: ', 
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
                               fontWeight:
-                                  FontWeight.bold, // Bold only for 'Genre'
+                                  FontWeight.bold, 
                             ),
                           ),
                           TextSpan(
                             text:
-                                'Action, Adventure', // The rest will be regular
+                                'Action, Adventure', 
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
@@ -79,16 +79,16 @@ class MovieSchedule extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Duration: ', // Only 'Duration' will be bold
+                            text: 'Duration: ', 
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
                               fontWeight:
-                                  FontWeight.bold, // Bold only for 'Duration'
+                                  FontWeight.bold, 
                             ),
                           ),
                           TextSpan(
-                            text: '2h 2m', // The rest will be regular
+                            text: '2h 2m',
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
@@ -102,16 +102,16 @@ class MovieSchedule extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: 'Time: ', // Only 'Genre' will be bold
+                            text: 'Time: ', 
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,
                               fontWeight:
-                                  FontWeight.bold, // Bold only for 'Genre'
+                                  FontWeight.bold, 
                             ),
                           ),
                           TextSpan(
-                            text: 'Today 10:30 pm', // The rest will be regular
+                            text: 'Today 10:30 pm', 
                             style: TextStyle(
                               color: AppColor.lightRed,
                               fontSize: 14,

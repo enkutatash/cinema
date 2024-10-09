@@ -3,6 +3,8 @@ import 'package:cinema/features/auth/domain/usecase/register_usecase.dart';
 import 'package:cinema/features/auth/presentation/auth_page/login_page.dart';
 import 'package:cinema/features/auth/presentation/auth_page/register_page.dart';
 import 'package:cinema/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:cinema/features/movie/presentaion/pages/buy_tickets_page.dart';
+import 'package:cinema/features/movie/presentaion/pages/movie_detail_page.dart';
 import 'package:cinema/features/movie/presentaion/pages/movie_display_page.dart';
 import 'package:cinema/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +39,14 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          initialRoute: '/displaymovie',
+          initialRoute: '/buyticket',
           routes: {
             // '/': (context) => SplashScreen(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/displaymovie':(context)=>MovieDisplayPage(),
+            '/detailmovie':(context)=>MovieDetailPage(),
+            '/buyticket':(context)=>BuyTicketsPage(),
             '/home': (context) => Home(
                   loginUsecase: locator<LoginUsecase>(),
                 )

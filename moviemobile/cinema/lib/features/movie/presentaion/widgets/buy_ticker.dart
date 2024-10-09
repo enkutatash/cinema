@@ -5,7 +5,14 @@ import 'package:flutter/material.dart';
 class BuyTicker extends StatelessWidget {
   VoidCallback onPressed;
   String text;
-  BuyTicker({required this.onPressed, required this.text, super.key});
+  double height;
+  double font;
+  BuyTicker(
+      {required this.onPressed,
+      required this.text,
+      this.height = 0.04,
+      this.font = 20,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +20,7 @@ class BuyTicker extends StatelessWidget {
       onTap: onPressed,
       child: Container(
           width: MediaQuery.of(context).size.width * 0.25,
-          height: MediaQuery.of(context).size.height * 0.04,
+          height: MediaQuery.of(context).size.height * height,
           decoration: BoxDecoration(
               color: AppColor.lightRed,
               borderRadius: BorderRadius.circular(20),
@@ -29,6 +36,7 @@ class BuyTicker extends StatelessWidget {
             text,
             style: TextStyle(
               color: Colors.white,
+              fontSize: font,
               fontWeight: FontWeight.bold,
             ),
           ))),
