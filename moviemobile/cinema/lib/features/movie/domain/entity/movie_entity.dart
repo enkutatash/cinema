@@ -32,7 +32,7 @@ class Cast {
   String image;
   String role;
   Cast({required this.name, required this.image, required this.role});
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'image': image,
@@ -41,21 +41,25 @@ class Cast {
   }
 }
 
-class ScheduleEntity{
+class ScheduleEntity {
   final String scheduleId;
   final String movieId;
-  final String date;
   final String time;
+  final String endTime;
   final String hall;
-  final String price;
-  final String availableSeats;
+  final double price;
+  final List<String> availableSeats;
+  final List<String> takenSeats;
+  MovieEntity? movie;
   ScheduleEntity({
     required this.scheduleId,
     required this.movieId,
-    required this.date,
     required this.time,
+    required this.endTime,
     required this.hall,
     required this.price,
     required this.availableSeats,
+    this.takenSeats = const [],
+    this.movie,
   });
 }

@@ -44,4 +44,5 @@ Future<void> setUp() async {
   locator.registerLazySingleton<RemoveDataSourceMovie>(()=> RemoveDataSourceMovie(dio: locator<Dio>()));
   locator.registerLazySingleton<MovieRepo>(() => MovierepoImp(remoteDataSource: locator<RemoveDataSourceMovie>(), networkInfo: locator<NetworkInfo>()));
   locator.registerLazySingleton<GetMoviesUsecase>(()=>GetMoviesUsecase(movieRepository: locator<MovieRepo>()));
+    locator.registerLazySingleton<GetMovieScheduleUsecase>(()=>GetMovieScheduleUsecase(movieRepository: locator<MovieRepo>()));
 }

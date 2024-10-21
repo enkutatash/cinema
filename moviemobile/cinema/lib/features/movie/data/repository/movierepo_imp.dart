@@ -29,9 +29,28 @@ class MovierepoImp extends MovieRepo {
   }
 
   @override
-  Future<Either<Failure, void>> getMovieSchedules() {
-    // TODO: implement getMovieSchedules
-    throw UnimplementedError();
+  Future<Either<Failure, List<ScheduleModel>>> getMovieSchedules() async {
+    try {
+      if (await networkInfo.isConnected) {
+        final schedules = await remoteDataSource.getMoviesSchedules();
+        return schedules.fold((failure) {
+          return Left(failure);
+        }, (schedulesList) async {
+          for (var showtime in schedulesList) {
+            var r = await remoteDataSource.getMoviesById(showtime.movieId);
+            r.fold((failure) {
+              showtime.movie = null;
+            }, (m) {
+              showtime.movie = m;
+            });
+          }
+          return Right(schedulesList);
+        });
+      }
+      return Left(Failure(message: "No Internet Connection"));
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
   }
 
   @override

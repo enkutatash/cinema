@@ -11,3 +11,10 @@ class FetchMovie extends MovieEvent{
 
 }
 
+class FetchShowTime extends MovieEvent{
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+
+}
+

@@ -12,6 +12,10 @@ class MovieDisplayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<MovieBloc>().add(FetchMovie());
+    });
+
     final List<Map<String, String>> movieList = [
       {
         'image': 'assets/images/joker.jpg',
@@ -37,12 +41,14 @@ class MovieDisplayPage extends StatelessWidget {
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColor.backgroundColor,
-        leading: IconButton(onPressed: (){
-          context.read<MovieBloc>().add(FetchMovie());
-        }, icon: Icon(
-          CupertinoIcons.bars,
-          color: AppColor.lightRed,
-        )),
+        leading: IconButton(
+            onPressed: () {
+              context.read<MovieBloc>().add(FetchShowTime());
+            },
+            icon: Icon(
+              CupertinoIcons.bars,
+              color: AppColor.lightRed,
+            )),
         title: Text(
           'Cinema',
           style: TextStyle(color: AppColor.lightRed),
@@ -71,46 +77,58 @@ class MovieDisplayPage extends StatelessWidget {
               SizedBox(
                 height: height * 0.02,
               ),
-              CarouselSlider.builder(
-                options: CarouselOptions(
-                  height: height * 0.4,
-                  enlargeCenterPage: true, // Enlarges the center image
-                  viewportFraction: 0.6, // Show two images
-                  onPageChanged: (index, reason) {
-                    print('Current page index: $index');
-                  },
-                ),
-                itemCount: movieList.length,
-                itemBuilder: (context, index, realIndex) {
-                  final movie = movieList[index];
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(15),
-                            child: Image.asset(
-                              movie['image']!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
+              BlocBuilder<MovieBloc, MovieState>(builder: (context, state) {
+                if (state.status == MoviePageStatus.loading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state.status == MoviePageStatus.failed) {
+                  return Center(child: Text("Failed to load data"));
+                }
+                if (state.movies.isEmpty) {
+                  return Center(child: Text("No movies available"));
+                }
+
+                print("Loaded movies: ${state.movies.length} ${state.status}");
+                return CarouselSlider.builder(
+                  options: CarouselOptions(
+                    height: height * 0.4,
+                    enlargeCenterPage: true, // Enlarges the center image
+                    viewportFraction: 0.6, // Show two images
+                    onPageChanged: (index, reason) {
+                      print('Current page index: $index');
+                    },
+                  ),
+                  itemCount: state.movies.length,
+                  itemBuilder: (context, index, realIndex) {
+                    final movie = state.movies[index];
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Image.network(
+                                movie.poster,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        movie['name']!,
-                        style: TextStyle(
-                          color: AppColor.lightRed,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        SizedBox(height: 8),
+                        Text(
+                          movie.title,
+                          style: TextStyle(
+                            color: AppColor.lightRed,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
+                      ],
+                    );
+                  },
+                );
+              }),
               SizedBox(
                 height: height * 0.02,
               ),
@@ -119,14 +137,24 @@ class MovieDisplayPage extends StatelessWidget {
                 child: Text("Upcoming ",
                     style: TextStyle(color: AppColor.lightRed, fontSize: 20)),
               ),
+              BlocBuilder<MovieBloc, MovieState>(builder: (context, state) {
+                if (state.status == MoviePageStatus.loading) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (state.status == MoviePageStatus.failed) {
+                  return Center(child: Text("Failed to load data"));
+                }
+                if (state.movies.isEmpty) {
+                  return Center(child: Text("No schedules available"));
+                }
+                return
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 4,
+                itemCount: state.movies.length,
                 itemBuilder: (context, index) {
-                  return MovieSchedule();
+                  return MovieSchedule(movie: state.movies[index],);
                 },
-              ),
+              );}),
             ],
           ),
         ),

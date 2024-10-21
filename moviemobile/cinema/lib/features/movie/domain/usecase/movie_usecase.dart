@@ -16,7 +16,7 @@ class GetMovieScheduleUsecase{
   final MovieRepo movieRepository;
   GetMovieScheduleUsecase({required this.movieRepository});
   
-  Future<Either<Failure,void>> execute(){
+  Future<Either<Failure,List<ScheduleEntity>>> execute(){
     return movieRepository.getMovieSchedules();
   }
 }

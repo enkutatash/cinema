@@ -2,7 +2,9 @@ import 'package:cinema/features/auth/domain/usecase/login_usecase.dart';
 import 'package:cinema/features/auth/domain/usecase/register_usecase.dart';
 import 'package:cinema/features/auth/presentation/auth_page/login_page.dart';
 import 'package:cinema/features/auth/presentation/auth_page/register_page.dart';
+import 'package:cinema/features/auth/presentation/auth_page/splash_screen.dart';
 import 'package:cinema/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:cinema/features/movie/domain/entity/movie_entity.dart';
 import 'package:cinema/features/movie/domain/usecase/movie_usecase.dart';
 import 'package:cinema/features/movie/presentaion/bloc/movie_bloc.dart';
 import 'package:cinema/features/movie/presentaion/pages/buy_tickets_page.dart';
@@ -36,6 +38,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => MovieBloc(
               getMoviesUsecase: locator<GetMoviesUsecase>(),
+              getMovieScheduleUsecase: locator<GetMovieScheduleUsecase>()
             )..add(FetchMovie()),
           )
         ],
@@ -45,18 +48,29 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          initialRoute: '/displaymovie',
+          initialRoute: '/login',
           routes: {
-            // '/': (context) => SplashScreen(),
+            '/': (context) => SplashScreen(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/displaymovie': (context) => MovieDisplayPage(),
-            '/detailmovie': (context) => MovieDetailPage(),
             '/buyticket': (context) => BuyTicketsPage(),
-            '/home': (context) => Home(
-                  loginUsecase: locator<LoginUsecase>(),
-                )
+            // '/home': (context) => Home(
+            //       loginUsecase: locator<LoginUsecase>(),
+            //     ),
+                
           },
+           onGenerateRoute: (settings) {
+          if (settings.name == '/detailmovie') {
+            final item = settings.arguments as MovieEntity;
+            return MaterialPageRoute(
+              builder: (context) {
+                return MovieDetailPage(movie: item);
+              },
+            );
+          }
+          return null;
+        },
         ));
   }
 }

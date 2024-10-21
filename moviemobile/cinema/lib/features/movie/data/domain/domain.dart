@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cinema/features/movie/domain/entity/movie_entity.dart';
 import 'package:equatable/equatable.dart';
 
@@ -75,6 +77,44 @@ class MovieModel extends MovieEntity {
       'duration': duration,
       'trailer': trailer,
       'cast': cast.map((item) => item.toJson()).toList(),
+    };
+  }
+}
+
+class ScheduleModel extends ScheduleEntity {
+  ScheduleModel(
+      {required super.scheduleId,
+      required super.movieId,
+      required super.time,
+      required super.endTime,
+      required super.hall,
+      required super.price,
+      required super.availableSeats,
+      super.takenSeats});
+  factory ScheduleModel.fromJson(Map<String, dynamic> json) {
+   
+    return ScheduleModel(
+      scheduleId: json['showtimeid'],
+      movieId: json['movieid'],
+      time: json['timeStart'],
+      endTime: json['timeEnd'],
+      hall: json['hallid'],
+       price: json['price'].toDouble(),
+      takenSeats: (json['takenSeats'] as Map<String, dynamic>).keys.toList(),
+      availableSeats:  List<String>.from(json['availableSeats']??[]),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'showtimeid': scheduleId,
+      'movieid': movieId,
+      'timeStart': time,
+      'timeEnd': endTime,
+      'hallid': hall,
+      'price': price,
+      'availableSeats': availableSeats,
+      'takenSeats': takenSeats,
     };
   }
 }

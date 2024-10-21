@@ -8,6 +8,6 @@ abstract class MovieRepo {
   Future<Either<Failure,void>> deleteMovie(MovieEntity movie);
   Future<Either<Failure,void>> updateMovie(MovieEntity movie);
   Future<Either<Failure,void>> buyTicket(MovieEntity movie);
-  Future<Either<Failure,void>> getMovieSchedules();
+  Future<Either<Failure,List<ScheduleEntity>>> getMovieSchedules();
 
 }

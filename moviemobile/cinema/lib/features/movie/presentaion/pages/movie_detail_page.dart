@@ -1,11 +1,13 @@
 import 'package:cinema/core/constant/color.dart';
+import 'package:cinema/features/movie/domain/entity/movie_entity.dart';
 import 'package:cinema/features/movie/presentaion/widgets/buy_ticker.dart';
 import 'package:cinema/features/movie/presentaion/widgets/price_show.dart';
 import 'package:cinema/features/movie/presentaion/widgets/video_play.dart';
 import 'package:flutter/material.dart';
 
 class MovieDetailPage extends StatelessWidget {
-  const MovieDetailPage({super.key});
+  MovieEntity movie;
+   MovieDetailPage({required this.movie,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class MovieDetailPage extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(25),
-                  child: Image.asset(
-                    "assets/images/joker.jpg",
+                  child: Image.network(
+                   movie.poster,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: height * 0.45,
@@ -42,8 +44,8 @@ class MovieDetailPage extends StatelessWidget {
                       PriceShow(
                         isFull: true,
                       ),
-                      const Text(
-                        "Black Widow",
+                       Text(
+                        movie.title, // Movie title
                         style: TextStyle(
                             color: AppColor.lightRed,
                             fontSize: 45,
@@ -60,8 +62,8 @@ class MovieDetailPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const TextSpan(
-                              text: 'Action, Adventure',
+                             TextSpan(
+                              text: movie.genre, // Movie genre
                               style: TextStyle(
                                 color: AppColor.lightRed,
                                 fontSize: 14,
@@ -113,8 +115,8 @@ class MovieDetailPage extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(15),
-              child: const Text(
-                "A listless Wade Wilson toils away in civilian life with his days as the morally flexible mercenary, Deadpool, behind him. But when his homeworld faces an existential threat, Wade must reluctantly suit-up again with an even more reluctant Wolverine.",
+              child:  Text(
+               movie.description, // Movie description
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
