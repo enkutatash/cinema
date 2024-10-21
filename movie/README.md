@@ -16,15 +16,3 @@ This is a **Cinema Backend API** developed in **Go** that supports user authenti
   - Reserve seats for selected showtimes.
 
 ---
-
-## 🛠️ Getting Started
-
-### Prerequisites
-To get started, you will need:
-- Go installed on your machine. Follow the installation guide: [Install Go](https://golang.org/doc/install).
-- A working database (e.g., MongoDB, PostgreSQL) to store movie and schedule data.
-
-### Installation
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/your-username/cinema-backend.git
