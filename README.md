@@ -16,14 +16,33 @@ This is a **Cinema Backend API** developed in **Go** that supports user authenti
   - Reserve seats for selected showtimes.
 
 ---
-**Flutter-based mobile application** that allows users to:
-- **Sign up and log in** to access the app
-- Browse through the **latest movies** and **cinema schedules**
-- View detailed information about movies and showtimes
-- **Book tickets** for upcoming movie showtimes
--- Play trailer
-![Login Screen](assets/images/login.jpg)
-![Sign up](assets/images/signup.jpg)
-![Movie Listing](assets/images/home(1).jpg)
-![Cinema Schedule](assets/images/schedules.jpg)
-![See trailer](assets/images/trailer.jpg)
+
+## 📱 Flutter Mobile Application
+
+This project also includes a **Flutter-based mobile application** that allows users to:
+
+- **Sign up and log in** to access the app.
+- Browse through the **latest movies** and **cinema schedules**.
+- View detailed information about movies and showtimes.
+- **Book tickets** for upcoming movie showtimes.
+- Play trailers for movies.
+
+### Screenshots
+Here are some screenshots from the Flutter mobile application:
+
+- **Login Screen**
+  ![Login Screen](assets/images/login.jpg)
+
+- **Sign Up Screen**
+  ![Sign Up](assets/images/signup.jpg)
+
+- **Movie Listing**
+  ![Movie Listing](assets/images/home(1).jpg)
+
+- **Cinema Schedule**
+  ![Cinema Schedule](assets/images/schedules.jpg)
+
+- **Watch Trailer**
+  ![See Trailer](assets/images/trailer.jpg)
+
+---
