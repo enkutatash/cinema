@@ -1,8 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cinema/core/constant/color.dart';
+import 'package:cinema/features/movie/presentaion/bloc/movie_bloc.dart';
 import 'package:cinema/features/movie/presentaion/widgets/movie_schedule.dart';
+import 'package:cinema/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MovieDisplayPage extends StatelessWidget {
   const MovieDisplayPage({super.key});
@@ -34,10 +37,12 @@ class MovieDisplayPage extends StatelessWidget {
       backgroundColor: AppColor.backgroundColor,
       appBar: AppBar(
         backgroundColor: AppColor.backgroundColor,
-        leading: Icon(
+        leading: IconButton(onPressed: (){
+          context.read<MovieBloc>().add(FetchMovie());
+        }, icon: Icon(
           CupertinoIcons.bars,
           color: AppColor.lightRed,
-        ),
+        )),
         title: Text(
           'Cinema',
           style: TextStyle(color: AppColor.lightRed),

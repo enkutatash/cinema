@@ -18,7 +18,7 @@ class RemoteDataSourceImp extends RemoteDataSource {
     try {
       final user = {"email": email, "password": password};
       final response =
-          await dio.post("http://192.168.98.27:8080/login", data: user);
+          await dio.post("http://172.21.240.1:8080/login", data: user);
       if (response.statusCode == 200) {
         final responseData = response.data;
         print("login remote" + responseData.toString());
@@ -47,7 +47,7 @@ class RemoteDataSourceImp extends RemoteDataSource {
       final user = {"fullName": fullName, "email": email, "password": password};
 
       final response =
-          await dio.post("http://192.168.98.27:8080/register", data: user);
+          await dio.post("http:// 172.21.240.1:8080/register", data: user);
       if (response.statusCode == 200) {
         return Right(null);
       }

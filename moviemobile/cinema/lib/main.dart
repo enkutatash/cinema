@@ -3,6 +3,8 @@ import 'package:cinema/features/auth/domain/usecase/register_usecase.dart';
 import 'package:cinema/features/auth/presentation/auth_page/login_page.dart';
 import 'package:cinema/features/auth/presentation/auth_page/register_page.dart';
 import 'package:cinema/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:cinema/features/movie/domain/usecase/movie_usecase.dart';
+import 'package:cinema/features/movie/presentaion/bloc/movie_bloc.dart';
 import 'package:cinema/features/movie/presentaion/pages/buy_tickets_page.dart';
 import 'package:cinema/features/movie/presentaion/pages/movie_detail_page.dart';
 import 'package:cinema/features/movie/presentaion/pages/movie_display_page.dart';
@@ -15,7 +17,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await setUp();
-
   runApp(MyApp());
 }
 
@@ -32,6 +33,11 @@ class MyApp extends StatelessWidget {
               loginUsecase: locator<LoginUsecase>(),
             ),
           ),
+          BlocProvider(
+            create: (context) => MovieBloc(
+              getMoviesUsecase: locator<GetMoviesUsecase>(),
+            )..add(FetchMovie()),
+          )
         ],
         child: MaterialApp(
           title: 'Flutter Demo',
@@ -39,14 +45,14 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
             useMaterial3: true,
           ),
-          initialRoute: '/buyticket',
+          initialRoute: '/displaymovie',
           routes: {
             // '/': (context) => SplashScreen(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
-            '/displaymovie':(context)=>MovieDisplayPage(),
-            '/detailmovie':(context)=>MovieDetailPage(),
-            '/buyticket':(context)=>BuyTicketsPage(),
+            '/displaymovie': (context) => MovieDisplayPage(),
+            '/detailmovie': (context) => MovieDetailPage(),
+            '/buyticket': (context) => BuyTicketsPage(),
             '/home': (context) => Home(
                   loginUsecase: locator<LoginUsecase>(),
                 )

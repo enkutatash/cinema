@@ -33,6 +33,7 @@ class BuyTicker extends StatelessWidget {
               ]),
           child: Center(
               child: Text(
+            textAlign: TextAlign.center,
             text,
             style: TextStyle(
               color: Colors.white,
